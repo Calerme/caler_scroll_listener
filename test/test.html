@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    h4 {
+      color: deepskyblue;
+    }
+
+    #app {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 400px;
+      height: min-content;
+      border-radius: 10px;
+      box-shadow: 2px 2px 4px 4px rgba(0, 0, 0, .3);
+      overflow: hidden;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      border-bottom: 2px solid #f1f1f1;
+    }
+
+    nav span {
+      padding: 6px 0;
+    }
+
+    nav span.active {
+      color: deepskyblue;
+    }
+
+    article {
+      padding-left: 20px;
+      height: 300px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <nav>
+    <span class="active">Title1</span>
+    <span>Title2</span>
+    <span>Title3</span>
+    <span>Title4</span>
+    <span>Title5</span>
+  </nav>
+  <article>
+    <h4>This is title 1</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam amet deserunt est fugiat fugit in laboriosam
+      mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
+    <h4>This is title 2</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam amet deserunt est fugiat fugit in laboriosam
+      mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
+    <h4>This is title 3</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam amet deserunt est fugiat fugit in laboriosam
+      mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
+    <h4>This is title 4</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam amet deserunt est fugiat fugit in laboriosam
+      mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
+    <h4>This is title 5</h4>
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab aliquam amet deserunt est fugiat fugit in laboriosam
+      mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
+  </article>
+  <script src="../index.js"></script>
+</div>
+</body>
+</html>
