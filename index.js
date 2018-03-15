@@ -8,22 +8,55 @@ function scrollListener(wrapper, opts) {
   };
   const finalOpts = Object.assign({}, defaultOpts, opts);
   const cacheElement = {};
-  initCacheElemtn();
-  function initCacheElemtn() {
+  initCacheElement();
+  function initCacheElement() {
     cacheElement.wrapper =
       wrapper instanceof HTMLElement ? wrapper : document.querySelector(wrapper);
     cacheElement.items = Array.from(document.querySelectorAll(finalOpts.itemSelector));
   }
 
   if (finalOpts.relative === 'viewport') {
-
+    cacheElement.wrapper.onscroll = reduce(relativeByViewPort(), finalOpts.reduceTime);
   } else if (finalOpts.relative === 'wrapper') {
-    wrapper.onscroll = reduce(relativeByParent(), finalOpts.reduceTime);
+    cacheElement.wrapper.onscroll = reduce(relativeByParent(), finalOpts.reduceTime);
   }
 
   // 相对于视口的滚动监听
   function relativeByViewPort() {
 
+    return function handler () {
+      let currentItem = null;
+      let currentItemIndex = null;
+
+      const cacheItemBoundingClientRectTop = []
+      for (let [i, item] of cacheElement.items.entries()) {
+        cacheItemBoundingClientRectTop[i] =
+          item.getBoundingClientRect().top;
+      }
+
+      // 如果倒数第二个已经超出视口，那么当前项就为最后一个
+      if (cacheItemBoundingClientRectTop[cacheElement.items.length - 1] < 0) {
+        currentItemIndex = cacheElement.items.length - 1;
+        currentItem = cacheElement.items[currentItemIndex];
+      } else {
+        const cacheTopABS= [];
+        // 如果有项目位于限定的位置
+        for (let [i, top] of cacheItemBoundingClientRectTop.entries()) {
+          cacheTopABS[i] = Math.abs(top);
+          if (top > 0 && top < finalOpts.top) {
+            currentItemIndex = i;
+            currentItem = cacheElement.items[currentItemIndex];
+            break;
+          }
+        }
+        // 如果没有项目位于限定的位置，就找一个距离视口最近的元素
+        if (!currentItem) {
+          currentItemIndex = cacheTopABS.indexOf(Math.min(...cacheTopABS));
+          currentItem = cacheElement.items[currentItemIndex];
+        }
+      }
+      finalOpts.cb && finalOpts.cb(currentItem, currentItemIndex);
+    };
   }
   // 相对于父容器的滚动监听
   function  relativeByParent() {
@@ -88,16 +121,3 @@ function scrollListener(wrapper, opts) {
     }
   }
 }
-
-const wrapper = document.querySelector('article');
-const navItems = document.querySelectorAll('span');
-scrollListener(wrapper, {
-  relative: 'wrapper',
-  itemSelector: 'h4',
-  cb (currentItem, currentIndex) {
-    for ( let item of navItems ) {
-      item.classList.remove('active');
-    }
-    navItems[currentIndex].classList.add('active');
-  }
-});

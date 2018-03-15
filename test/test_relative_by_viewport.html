@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    html, body { height: 100%; }
+    body {
+      display: flex;
+      margin: 0;
+    }
+    .menu {
+      display: flex;
+      flex-direction: column;
+      width: 20%;
+      border-right: 2px solid #f1f1f1;
+      overflow: auto;
+    }
+    .menu .menu_item {
+      width: 100%;
+      padding: 10px 0;
+      border-bottom: 2px solid #f1f1f1;
+      text-align: center;
+    }
+    .menu_item.active {
+      color: deepskyblue;
+    }
+    .content {
+      width: 80%;
+      height: 100%;
+      padding-left: 20px;
+      overflow: auto;
+    }
+    .content h4 {
+      color: deepskyblue;
+    }
+  </style>
+</head>
+<body>
+<nav class="menu">
+</nav>
+<article class="content">
+</article>
+<script src="../index.js"></script>
+<script>
+  const menu = document.querySelector('.menu');
+  const content = document.querySelector('.content');
+
+  const menuChildrenFragment = new DocumentFragment();
+  const contentChildrenFragment = new DocumentFragment();
+
+  const repeatTimes = 30;
+  for (let i = 1; i < repeatTimes; i++) {
+    const menuItem = document.createElement('span');
+    menuItem.classList.add('menu_item');
+    if (i === 1) menuItem.classList.add('active');
+    menuItem.textContent = `Title ${i}`;
+    menuChildrenFragment.appendChild(menuItem);
+    const headItem = document.createElement('h4');
+    headItem.textContent = `This is title ${i}`;
+    const pItem = document.createElement('p');
+    pItem.textContent = `Lorem ipsum dolor sit amet, consectetur adipisicing elit. A ab accusamus animi aut consequatur corporis ducimus ea earum, error esse eum iste labore molestiae nihil numquam perspiciatis quidem ratione repellat. Ab aperiam cum facere fugiat iusto libero, quis ratione reiciendis! Cum eaque, eligendi laboriosam maiores nisi reprehenderit veniam! Inventore quos repellat temporibus tenetur. A dicta enim fugit ipsum iste natus nulla officiis temporibus voluptatem voluptatibus. Aperiam consectetur dignissimos eum ex id illum laborum, magnam maiores maxime minima quam quidem reprehenderit sapiente similique sunt? Alias beatae eligendi est expedita facilis modi. Cum dicta fuga fugiat similique unde! Dicta facilis tempora ut.`;
+    contentChildrenFragment.appendChild(headItem);
+    contentChildrenFragment.appendChild(pItem);
+  }
+  menu.appendChild(menuChildrenFragment);
+  content.appendChild(contentChildrenFragment);
+
+  const cacheNavItem = Array.from(document.querySelectorAll('.menu_item'));
+  scrollListener('.content', {
+    relative: 'viewport',
+    itemSelector: 'h4',
+    cb(currentItem, currentItemIndex) {
+      cacheNavItem.forEach(item => item.classList.remove('active'));
+      cacheNavItem[currentItemIndex].classList.add('active');
+    }
+  })
+</script>
+</body>
+</html>

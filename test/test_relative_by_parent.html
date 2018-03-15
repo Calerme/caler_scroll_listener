@@ -75,6 +75,20 @@
       mollitia nemo, perspiciatis quas sequi tempore voluptates. Eaque earum excepturi incidunt ratione vero.</p>
   </article>
   <script src="../index.js"></script>
+  <script>
+    const wrapper = document.querySelector('article');
+    const navItems = document.querySelectorAll('span');
+    scrollListener(wrapper, {
+      relative: 'wrapper',
+      itemSelector: 'h4',
+      cb(currentItem, currentIndex) {
+        for (let item of navItems) {
+          item.classList.remove('active');
+        }
+        navItems[currentIndex].classList.add('active');
+      }
+    });
+  </script>
 </div>
 </body>
 </html>
