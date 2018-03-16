@@ -43,7 +43,7 @@ function scrollListener(wrapper, opts) {
         // 如果有项目位于限定的位置
         for (let [i, top] of cacheItemBoundingClientRectTop.entries()) {
           cacheTopABS[i] = Math.abs(top);
-          if (top > 0 && top < finalOpts.top) {
+          if (top >= 0 && top <= finalOpts.top) {
             currentItemIndex = i;
             currentItem = cacheElement.items[currentItemIndex];
             break;
@@ -88,7 +88,7 @@ function scrollListener(wrapper, opts) {
         for (let [i, item] of cacheElement.items.entries()) {
           let ret = itemsOffsetTop[i] - wrapperScrollTop;
           cacheItemsY[i] = Math.abs(ret);
-          if (ret > 0 && ret < finalOpts.top) {
+          if (ret >= 0 && ret <= finalOpts.top) {
             currentItem = item;
             currentItemIndex = i;
             break;
@@ -121,3 +121,5 @@ function scrollListener(wrapper, opts) {
     }
   }
 }
+
+export default scrollListener;
