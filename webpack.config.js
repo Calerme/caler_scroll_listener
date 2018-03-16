@@ -6,8 +6,6 @@ function resolve(...pathPart) {
   return path.resolve(__dirname, ...pathPart);
 }
 
-const pkg = JSON.parse(fs.readFileSync(resolve('package.json')));
-
 module.exports = {
   context: resolve('.'),
   entry: {
@@ -15,7 +13,7 @@ module.exports = {
   },
   output: {
     path: resolve('dist'),
-    filename: `[name]-${pkg.version}.js`,
+    filename: `[name].js`,
     library: "scrollListener",
     libraryTarget: 'umd',
     libraryExport: 'default' // https://segmentfault.com/q/1010000005028964
