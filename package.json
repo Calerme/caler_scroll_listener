@@ -1,6 +1,6 @@
 {
   "name": "caler_scroll_listener",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "一个滚动监听工具。",
   "main": "dist/scrollListener.js",
   "scripts": {
